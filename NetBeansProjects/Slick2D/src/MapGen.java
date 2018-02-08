@@ -23,9 +23,11 @@ public class MapGen {
     int tileSize = 32;
     int size;
     double waterLevel = 0.0;
+    NoiseMixer noiseMixer;
     
     
     public MapGen(int size) {
+        noiseMixer = new NoiseMixer(1);
         this.size = size;
         noiseMap = new double[size+2][size+2];
         for(int y=0; y<size; y++){
@@ -54,6 +56,7 @@ public class MapGen {
         for(int y=0; y<size; y++){
             for(int x=0; x<size; x++){
                 double noise = 0;
+                /*
                 int numbFreq = 3;
                 double freq = 0.02;
                 for(int z = 1; z<=numbFreq; z++){
@@ -63,6 +66,8 @@ public class MapGen {
                 noise = noise /numbFreq;
                 //freq = 0.32;
                 //noise = SimplexNoise.noise(x*freq, y*freq);
+                */
+                noise = noiseMixer.getNoise(x, y);
                 noiseMap[x][y] = noise;
             }
         }
