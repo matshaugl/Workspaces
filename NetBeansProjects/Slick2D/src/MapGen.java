@@ -27,7 +27,7 @@ public class MapGen {
     
     
     public MapGen(int size) {
-        noiseMixer = new NoiseMixer(1);
+        noiseMixer = new NoiseMixer(10);
         this.size = size;
         noiseMap = new double[size+2][size+2];
         for(int y=0; y<size; y++){

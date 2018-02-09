@@ -3,6 +3,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 public class Play extends BasicGameState{
+    Image map;
     MapGen mapGen;
     Animator animator;
     Animation bucky, movingUp, movingDown, movingLeft, movingRight; //4 animations, bucky will be set to one
@@ -27,11 +28,12 @@ public class Play extends BasicGameState{
         movingRight = animator.getAnimation(1, 10);
         bucky = movingDown; //by default as soon as game loads, bucky will be facing down
         mapGen = new MapGen(100);
+        map = mapGen.getMapImage();
         
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        mapGen.getMapImage().draw(buckyPositionX, buckyPositionY); //draw the map at 0,0 to start
+        map.draw(buckyPositionX, buckyPositionY); //draw the map at 0,0 to start
         if(moving){
             bucky.draw(shiftX, shiftY); //draw bucky at 320, 160 (center of the screen)
         }else{
@@ -57,25 +59,25 @@ public class Play extends BasicGameState{
         //during the game if the user hits the up arrow...
         if (input.isKeyDown(Input.KEY_W)) {
             bucky = movingUp; //change bucky to up image
-            buckyPositionY += delta * .1f; //increase the Y coordinates of bucky (move him up)
+            buckyPositionY += delta * .3f; //increase the Y coordinates of bucky (move him up)
 
             moving = true;
         }
         if (input.isKeyDown(Input.KEY_S)) {
             bucky = movingDown;
-            buckyPositionY -= delta * .1f;
+            buckyPositionY -= delta * .3f;
 
             moving = true;
         }
         if (input.isKeyDown(Input.KEY_A)) {
             bucky = movingLeft;
-            buckyPositionX += delta * .1f;
+            buckyPositionX += delta * .3f;
 
             moving = true;
         }
         if (input.isKeyDown(Input.KEY_D)) {
             bucky = movingRight;
-            buckyPositionX -= delta * .1f;
+            buckyPositionX -= delta * .3f;
 
             moving = true;
         }

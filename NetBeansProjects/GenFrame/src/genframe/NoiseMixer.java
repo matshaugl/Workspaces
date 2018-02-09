@@ -1,3 +1,5 @@
+package genframe;
+
 
 import java.util.Random;
 
@@ -30,29 +32,17 @@ public class NoiseMixer {
         randomArray = new double [numbFreq];
         for(int i=0; i<numbFreq; i++){
             freqArray[i] = a*i + Math.pow(b,i) + c;
-            //freqArray[i] = i*8;
-            System.out.println(freqArray[i]);
+            //System.out.println(freqArray[i]);
             randomArray[i] = r.nextDouble() * 10000;
         }
     }
     
     public double getNoise(double x, double y){
         double noise = 0.0;
-        double xin = 128.0;
-        double noises[] = new double[numbFreq];
-        double totalFreq = 0;
         for(int i=1; i<=numbFreq; i++){
             double freq = a*i + Math.pow(b, i) + c;
-            noises[i-1] = SimplexNoise.noise(x / xin + randomArray[i-1], y / xin + randomArray[i-1]);
-            xin = xin * 1.5;
-            
-            //System.out.println(xin);
+            noise = SimplexNoise.noise((i / freqArray[i-1]) + randomArray[i-1], (y / freqArray[i-1]) + randomArray[i-1]);
         }
-        for(int i=0; i<numbFreq; i++){
-            noise = noise + (noises[i]/ freqArray[i]);
-            totalFreq = totalFreq + freqArray[i];
-        }
-        noise = noise / (totalFreq);
         //System.out.println(noise);
         return noise;
     }
