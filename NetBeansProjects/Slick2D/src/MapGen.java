@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.Graphics;
@@ -20,14 +21,21 @@ public class MapGen {
     SpriteSheet sheet;
     double noiseMap[][];
     Image map;
+    Image tree;
     int tileSize = 32;
     int size;
-    double waterLevel = 0.0;
-    NoiseMixer noiseMixer;
+    double waterLevel = -0.05;
+    double grassLevel = -0.02;
+    double treeLevel = -0.005;
+    //NoiseMixer noiseMixer;
+    FixedNoise fixedNoise;
+    Random r;
     
     
     public MapGen(int size) {
-        noiseMixer = new NoiseMixer(10);
+        r = new Random();
+        //noiseMixer = new NoiseMixer(10);
+        fixedNoise = new FixedNoise();
         this.size = size;
         noiseMap = new double[size+2][size+2];
         for(int y=0; y<size; y++){
@@ -36,6 +44,7 @@ public class MapGen {
             }
         }
         try {
+            tree = new Image("res/tree.png");
             sheet = new SpriteSheet("res/sandwaterbinary2.png", 32, 32);
             map = new Image(size*tileSize, size*tileSize);
         } catch (Exception ex) {
@@ -67,7 +76,8 @@ public class MapGen {
                 //freq = 0.32;
                 //noise = SimplexNoise.noise(x*freq, y*freq);
                 */
-                noise = noiseMixer.getNoise(x, y);
+                //noise = noiseMixer.getNoise(x, y);
+                noise = fixedNoise.getNoise(x, y);
                 noiseMap[x][y] = noise;
             }
         }
@@ -75,7 +85,7 @@ public class MapGen {
         for(int y=1; y<size-1; y++){
             for(int x=1; x<size-1; x++){
                 
-                
+                //Tegne vann og sand
                 if(noiseMap[x][y]<waterLevel){
                     g.drawImage(sheet.getSprite(0, 16), x*tileSize, y*tileSize);
                 } else {
@@ -94,7 +104,42 @@ public class MapGen {
                 }
                     g.drawImage(sheet.getSprite(0, spriteNumber), x*tileSize, y*tileSize);
                 }
+                //Tegne gras
+                if(noiseMap[x][y]<grassLevel){
+                    g.drawImage(sheet.getSprite(1, 16), x*tileSize, y*tileSize);
+                } else {
+                    int spriteNumber = 0;
+                if(noiseMap[x][y-1]>grassLevel){
+                    spriteNumber = spriteNumber + 1;
+                }
+                if(noiseMap[x][y+1]>grassLevel){
+                    spriteNumber = spriteNumber + 2;
+                }
+                if(noiseMap[x-1][y]>grassLevel){
+                    spriteNumber = spriteNumber + 4;
+                }
+                if(noiseMap[x+1][y]>grassLevel){
+                    spriteNumber = spriteNumber + 8;
+                }
+                    g.drawImage(sheet.getSprite(1, spriteNumber), x*tileSize, y*tileSize);
+                }
                 
+                
+                //Tegne tred
+                
+            }
+        }
+        
+        for(int y=1; y<size-1; y++){
+            for(int x=1; x<size-1; x++){
+                if(x%3==0 && y%3==0){
+                    //Tegne gras
+                    if(noiseMap[x][y]>treeLevel){
+                        if(r.nextInt(10)<3){
+                            g.drawImage(tree, x*tileSize, y*tileSize);
+                        } 
+                    } 
+                }
             }
         }
         

@@ -31,7 +31,7 @@ public class NoiseMixer {
         for(int i=0; i<numbFreq; i++){
             freqArray[i] = a*i + Math.pow(b,i) + c;
             //freqArray[i] = i*8;
-            System.out.println(freqArray[i]);
+            //System.out.println(freqArray[i]);
             randomArray[i] = r.nextDouble() * 10000;
         }
     }
@@ -53,7 +53,7 @@ public class NoiseMixer {
             totalFreq = totalFreq + freqArray[i];
         }
         noise = noise / (totalFreq);
-        //System.out.println(noise);
+        System.out.println(noise);
         return noise;
     }
 }

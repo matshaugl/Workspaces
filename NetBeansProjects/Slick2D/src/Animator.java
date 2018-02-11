@@ -39,6 +39,6 @@ public class Animator {
 
     Animation getAnimation(int x, int numb) {
         Image[] imageArray = loadImages(x, numb);
-        return new Animation(imageArray, 150);
+        return new Animation(imageArray, 50);
     }
 }
