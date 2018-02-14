@@ -1,46 +1,53 @@
 
+import Animator.*;
+import MapGen.MapGen;
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.*;
 
 public class Play extends BasicGameState{
+    Circle s;
+    Skeleton skeleton;
     Image map;
     MapGen mapGen;
-    Animator animator;
-    Animation bucky, movingUp, movingDown, movingLeft, movingRight; //4 animations, bucky will be set to one
     Image worldMap;
     boolean quit = false;
     boolean moving;
     int[] duration = {200, 200}; //duration or length of the frame
-    float buckyPositionX = 0; //bucky will start at coordinates 0,0
-    float buckyPositionY = 0;
-    float shiftX = buckyPositionX + 320; //this will shift the screen so bucky appears in middle
-    float shiftY = buckyPositionY + 160; //half the length and half the width of the screen
+    float playerPosX = 0; //bucky will start at coordinates 0,0
+    float playerPosY = 0;
+    float shiftX; //this will shift the screen so bucky appears in middle
+    float shiftY; //half the length and half the width of the screen
 
     public Play(int state) {
     }
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        animator = new Animator();
+        s = new Circle(0,0,15);
+        skeleton = new Skeleton();
         worldMap = new Image("res/world.png");
-        movingUp = animator.getAnimation(2, 10);
-        movingDown = animator.getAnimation(0, 10);
-        movingLeft = animator.getAnimation(3, 10);
-        movingRight = animator.getAnimation(1, 10);
-        bucky = movingDown; //by default as soon as game loads, bucky will be facing down
         mapGen = new MapGen(100);
         map = mapGen.getMapImage();
-        
+        shiftY = gc.getHeight()/2;
+        shiftX = gc.getWidth()/2;
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        map.draw(buckyPositionX, buckyPositionY); //draw the map at 0,0 to start
+        
+        map.draw(playerPosX, playerPosY); //draw the map at 0,0 to start
+        skeleton.render(shiftX, shiftY);
+        /*
         if(moving){
             bucky.draw(shiftX, shiftY); //draw bucky at 320, 160 (center of the screen)
         }else{
-            bucky.getImage(1).draw(shiftX, shiftY);
+            bucky.getImage(0).draw(shiftX, shiftY);
         }
-        g.drawString("Buckys X: " + buckyPositionX + "\nBuckys Y: " + buckyPositionY, 400, 20); //indicator to see where bucky is in his world
-
+*/
+        g.drawString("Plaer X: " + playerPosX + "\nPlayer Y: " + playerPosY, 400, 20); //indicator to see where bucky is in his world
+        g.drawString("Player X: " + (playerPosX-(gc.getWidth()/2)) + "\nPlayer Y: " + (playerPosY-(gc.getHeight())/2), 400, 80); //indicator to see where bucky is in his world
+        g.setColor(Color.red);
+        g.draw(s);
+        
         //when they press escape
         if (quit == true) {
             g.drawString("Resume (R)", 250, 100);
@@ -58,26 +65,26 @@ public class Play extends BasicGameState{
 
         //during the game if the user hits the up arrow...
         if (input.isKeyDown(Input.KEY_W)) {
-            bucky = movingUp; //change bucky to up image
-            buckyPositionY += delta * .3f; //increase the Y coordinates of bucky (move him up)
+            skeleton.setDirection(0);
+            playerPosY += delta * .3f; //increase the Y coordinates of bucky (move him up)
 
             moving = true;
         }
         if (input.isKeyDown(Input.KEY_S)) {
-            bucky = movingDown;
-            buckyPositionY -= delta * .3f;
+            skeleton.setDirection(2);
+            playerPosY -= delta * .3f;
 
             moving = true;
         }
         if (input.isKeyDown(Input.KEY_A)) {
-            bucky = movingLeft;
-            buckyPositionX += delta * .3f;
+            skeleton.setDirection(1);
+            playerPosX += delta * .3f;
 
             moving = true;
         }
         if (input.isKeyDown(Input.KEY_D)) {
-            bucky = movingRight;
-            buckyPositionX -= delta * .3f;
+            skeleton.setDirection(3);
+            playerPosX -= delta * .3f;
 
             moving = true;
         }
@@ -103,6 +110,9 @@ public class Play extends BasicGameState{
             if (input.isKeyDown(Input.KEY_Q)) {
                 System.exit(0);
             }
+        }
+        if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
+            s.setLocation(input.getMouseX(), input.getMouseY());
         }
     }
 
