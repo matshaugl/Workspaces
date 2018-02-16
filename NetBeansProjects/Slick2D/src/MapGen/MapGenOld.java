@@ -21,7 +21,7 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author Mats
  */
-public class MapGen {
+public class MapGenOld {
     
     SpriteSheet sheet;
     double noiseMap[][];
@@ -39,8 +39,7 @@ public class MapGen {
     Random r;
     
     
-    public MapGen(int size) {
-        System.out.println("MapGenInit");
+    public MapGenOld(int size) {
         treeXoff = -30;
         treeYoff = -84;
         r = new Random();
@@ -68,7 +67,7 @@ public class MapGen {
         try {
             g = map.getGraphics();
         } catch (SlickException ex) {
-            Logger.getLogger(MapGen.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MapGenOld.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("MapDraw fail");
         }
         //Make Noise map
