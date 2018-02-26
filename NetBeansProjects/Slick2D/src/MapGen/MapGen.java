@@ -133,10 +133,7 @@ public class MapGen {
                     spriteNumber = spriteNumber + 8;
                 }
                     g.drawImage(sheet.getSprite(1, spriteNumber), x*tileSize, y*tileSize);
-                }
-                
-                
-                //Tegne tred
+                }             
                 
             }
         }
