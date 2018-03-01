@@ -8,6 +8,7 @@ import org.newdawn.slick.state.*;
 public class Play extends BasicGameState{
     Circle s;
     Skeleton skeleton;
+    int p;
     Image map;
     MapGen mapGen;
     Image worldMap;
