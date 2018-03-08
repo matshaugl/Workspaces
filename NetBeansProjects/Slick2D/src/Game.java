@@ -9,7 +9,6 @@ public class Game extends StateBasedGame{
    
    public Game(String gamename){
       super(gamename);
-      this.addState(new Menu(menu));
       this.addState(new Play(play));
    }
    
@@ -24,6 +23,7 @@ public class Game extends StateBasedGame{
       try{
          appgc = new AppGameContainer(new Game(gamename));
          appgc.setDisplayMode(1600, 900, false);
+         //appgc.setDisplayMode(1920, 1080, true);
          appgc.start();
       }catch(SlickException e){
          e.printStackTrace();
