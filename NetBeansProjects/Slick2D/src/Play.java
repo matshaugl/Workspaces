@@ -1,22 +1,25 @@
 
 import Animator.*;
-import MapGen.MapGen;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.*;
 
 public class Play extends BasicGameState{
     Circle s;
-    Skeleton skeleton;
+    Player skeleton;
+    Player mob;
+    Tree tree;
     int p;
-    Image map;
-    MapGen mapGen;
+    //Image map;
+    //MapGen mapGen;
+    ChunkHandler chunkHandler;
     Image worldMap;
     boolean quit = false;
     boolean moving;
     int[] duration = {200, 200}; //duration or length of the frame
-    float playerPosX = 0; //bucky will start at coordinates 0,0
-    float playerPosY = 0;
+    float playerPosX = 800+16; //bucky will start at coordinates 0,0
+    float playerPosY = 450+43;
     float shiftX; //this will shift the screen so bucky appears in middle
     float shiftY; //half the length and half the width of the screen
 
@@ -24,18 +27,24 @@ public class Play extends BasicGameState{
     }
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        tree = new Tree(1,0);
         s = new Circle(0,0,15);
-        skeleton = new Skeleton();
+        skeleton = new Player();
+        mob = new Player();
         worldMap = new Image("res/world.png");
-        mapGen = new MapGen(100);
-        map = mapGen.getMapImage();
+        //mapGen = new MapGen(100);
+        //map = mapGen.getMapImage();
+        chunkHandler = new ChunkHandler();
         shiftY = gc.getHeight()/2;
         shiftX = gc.getWidth()/2;
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         
-        map.draw(playerPosX, playerPosY); //draw the map at 0,0 to start
+        chunkHandler.render(playerPosX, playerPosY);
+        //mapChunk.render(playerPosX, playerPosY);
+        
+        //map.draw(playerPosX, playerPosY); //draw the map at 0,0 to start
         skeleton.render(shiftX, shiftY);
         /*
         if(moving){
@@ -47,6 +56,8 @@ public class Play extends BasicGameState{
         g.drawString("Plaer X: " + playerPosX + "\nPlayer Y: " + playerPosY, 400, 20); //indicator to see where bucky is in his world
         g.drawString("Player X: " + (playerPosX-(gc.getWidth()/2)) + "\nPlayer Y: " + (playerPosY-(gc.getHeight())/2), 400, 80); //indicator to see where bucky is in his world
         g.setColor(Color.red);
+        g.draw(new Rectangle(0+playerPosX,0+playerPosY,32,32));
+        g.draw(new Rectangle(0+playerPosX,0+playerPosY,16,16));
         g.draw(s);
         
         //when they press escape
@@ -58,6 +69,7 @@ public class Play extends BasicGameState{
                 g.clear();
             }
         }
+        tree.render(playerPosX, playerPosY);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
