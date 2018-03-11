@@ -29,6 +29,8 @@ public class Play extends BasicGameState{
         camera = new Camera(816,493);
         tree = new Tree(1,0);
         s = new Circle(gc.getWidth()/2,gc.getScreenHeight()/2,15);
+        s.setCenterX(gc.getWidth()/2);
+        s.setCenterY(gc.getScreenHeight()/2);
         skeleton = new Player();
         mob = new Player();
         worldMap = new Image("res/world.png");
