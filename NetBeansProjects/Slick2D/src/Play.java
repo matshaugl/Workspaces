@@ -1,4 +1,5 @@
 
+import Camera.Camera;
 import Animator.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Circle;
@@ -11,119 +12,55 @@ public class Play extends BasicGameState{
     Player mob;
     Tree tree;
     int p;
-    //Image map;
-    //MapGen mapGen;
+
     ChunkHandler chunkHandler;
+    Camera camera;
     Image worldMap;
     boolean quit = false;
     boolean moving;
     int[] duration = {200, 200}; //duration or length of the frame
-    float playerPosX = 800+16; //bucky will start at coordinates 0,0
-    float playerPosY = 450+43;
-    float shiftX; //this will shift the screen so bucky appears in middle
-    float shiftY; //half the length and half the width of the screen
-
+    //float shiftX; //this will shift the screen so bucky appears in middle
+    //float shiftY; //half the length and half the width of the screen
+ 
     public Play(int state) {
     }
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        camera = new Camera(816,493);
         tree = new Tree(1,0);
-        s = new Circle(0,0,15);
+        s = new Circle(gc.getWidth()/2,gc.getScreenHeight()/2,15);
         skeleton = new Player();
         mob = new Player();
         worldMap = new Image("res/world.png");
         //mapGen = new MapGen(100);
         //map = mapGen.getMapImage();
         chunkHandler = new ChunkHandler();
-        shiftY = gc.getHeight()/2;
-        shiftX = gc.getWidth()/2;
+        //shiftY = gc.getHeight()/2;
+        //shiftX = gc.getWidth()/2;
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         
-        chunkHandler.render(playerPosX, playerPosY);
-        //mapChunk.render(playerPosX, playerPosY);
-        
-        //map.draw(playerPosX, playerPosY); //draw the map at 0,0 to start
-        skeleton.render(shiftX, shiftY);
-        /*
-        if(moving){
-            bucky.draw(shiftX, shiftY); //draw bucky at 320, 160 (center of the screen)
-        }else{
-            bucky.getImage(0).draw(shiftX, shiftY);
-        }
-*/
-        g.drawString("Plaer X: " + playerPosX + "\nPlayer Y: " + playerPosY, 400, 20); //indicator to see where bucky is in his world
-        g.drawString("Player X: " + (playerPosX-(gc.getWidth()/2)) + "\nPlayer Y: " + (playerPosY-(gc.getHeight())/2), 400, 80); //indicator to see where bucky is in his world
+        chunkHandler.render(camera);
+
+        skeleton.render(camera);
+
+        g.drawString("Plaer X: " + (camera.getX()) + "\nPlayer Y: " + camera.getY(), 400, 20); //indicator to see where bucky is in his world
+        g.drawString("Player X: " + ((camera.getX())-(gc.getWidth()/2)) + "\nPlayer Y: " + (camera.getY()-(gc.getHeight())/2), 400, 80); //indicator to see where bucky is in his world
         g.setColor(Color.red);
-        g.draw(new Rectangle(0+playerPosX,0+playerPosY,32,32));
-        g.draw(new Rectangle(0+playerPosX,0+playerPosY,16,16));
+        g.draw(new Rectangle(0+(camera.getX()),0+camera.getY(),32,32));
+        g.draw(new Rectangle(0+(camera.getX()),0+camera.getY(),16,16));
         g.draw(s);
         
-        //when they press escape
-        if (quit == true) {
-            g.drawString("Resume (R)", 250, 100);
-            g.drawString("Main Menu (M)", 250, 150);
-            g.drawString("Quit Game (Q)", 250, 200);
-            if (quit == false) {
-                g.clear();
-            }
-        }
-        tree.render(playerPosX, playerPosY);
+        tree.render((camera.getX()), camera.getY());
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         moving = false;
         Input input = gc.getInput();
+        
+        camera.update(input, delta);
 
-        //during the game if the user hits the up arrow...
-        if (input.isKeyDown(Input.KEY_W)) {
-            skeleton.setDirection(0);
-            playerPosY += delta * .3f; //increase the Y coordinates of bucky (move him up)
-
-            moving = true;
-        }
-        if (input.isKeyDown(Input.KEY_S)) {
-            skeleton.setDirection(2);
-            playerPosY -= delta * .3f;
-
-            moving = true;
-        }
-        if (input.isKeyDown(Input.KEY_A)) {
-            skeleton.setDirection(1);
-            playerPosX += delta * .3f;
-
-            moving = true;
-        }
-        if (input.isKeyDown(Input.KEY_D)) {
-            skeleton.setDirection(3);
-            playerPosX -= delta * .3f;
-
-            moving = true;
-        }
-
-        //escape
-        if (input.isKeyDown(Input.KEY_ESCAPE)) {
-            quit = true;
-        }
-
-        //when they hit escape
-        if (quit == true) {
-            if (input.isKeyDown(Input.KEY_R)) {
-                quit = false;
-            }
-            if (input.isKeyDown(Input.KEY_M)) {
-                sbg.enterState(0);
-                try {
-                    Thread.sleep(250);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (input.isKeyDown(Input.KEY_Q)) {
-                System.exit(0);
-            }
-        }
         if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
             s.setLocation(input.getMouseX(), input.getMouseY());
         }

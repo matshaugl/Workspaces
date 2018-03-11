@@ -27,9 +27,9 @@ public class FixedNoise {
         influence [1] = 0; //8
         influence [2] = 0; //16
         influence [3] = 0; //16
-        influence [4] = 0; //64
-        influence [5] = 100; //128
-        influence [6] = 0; //256
+        influence [4] = 100; //64
+        influence [5] = 0; //128
+        influence [6] = 0; //256 maks
         influence [7] = 0; //512
         influence [8] = 0; //1024
         influence [9] = 0; //2048

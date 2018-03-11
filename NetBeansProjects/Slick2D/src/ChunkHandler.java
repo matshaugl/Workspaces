@@ -1,4 +1,5 @@
 
+import Camera.Camera;
 import MapGen.FixedNoise;
 import MapGen.MapChunk;
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ public class ChunkHandler {
         chunks = new HashMap<String, MapChunk>();
         fixedNoise = new FixedNoise();
 
-        for (int x = -1; x < 10; x++) {
-            for (int y = -1; y < 10; y++) {
+        for (int x = -1; x < 1; x++) {
+            for (int y = -1; y < 1; y++) {
                 m = new MapChunk(x, y, fixedNoise);
                 chunks.put(m.getKey(), m);
             }
@@ -47,6 +48,14 @@ public class ChunkHandler {
 
     public void update() {
 
+    }
+
+    void render(Camera camera) {
+        for (int x = -1; x < 1; x++) {
+            for (int y = -1; y < 1; y++) {
+                chunks.get("" + x +","+ y).render((x * chunkSize * tileSize) + camera.getX(), (y * chunkSize * tileSize) + camera.getY());
+            }
+        }
     }
 
 }

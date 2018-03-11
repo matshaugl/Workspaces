@@ -82,7 +82,7 @@ public class MapChunk {
     }
     
     public String getKey(){
-        return ""+chunkX+chunkY;
+        return ""+chunkX+","+chunkY;
     }
 
     private void makeTerrainTypeArray() {
