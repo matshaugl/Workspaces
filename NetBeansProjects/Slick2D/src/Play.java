@@ -19,8 +19,6 @@ public class Play extends BasicGameState{
     boolean quit = false;
     boolean moving;
     int[] duration = {200, 200}; //duration or length of the frame
-    //float shiftX; //this will shift the screen so bucky appears in middle
-    //float shiftY; //half the length and half the width of the screen
  
     public Play(int state) {
     }
