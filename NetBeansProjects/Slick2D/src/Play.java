@@ -12,6 +12,8 @@ public class Play extends BasicGameState{
     Player mob;
     Tree tree;
     int p;
+    double chunkX;
+    double chunkY;
 
     ChunkHandler chunkHandler;
     Camera camera;
@@ -24,19 +26,17 @@ public class Play extends BasicGameState{
     }
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        camera = new Camera(816,493);
+        camera = new Camera(150,-120);
         tree = new Tree(1,0);
-        s = new Circle(gc.getWidth()/2,gc.getScreenHeight()/2,15);
+        s = new Circle(11,11,15);
         s.setCenterX(gc.getWidth()/2);
-        s.setCenterY(gc.getScreenHeight()/2);
+        s.setCenterY(gc.getHeight()/2);
         skeleton = new Player();
         mob = new Player();
         worldMap = new Image("res/world.png");
-        //mapGen = new MapGen(100);
-        //map = mapGen.getMapImage();
         chunkHandler = new ChunkHandler();
-        //shiftY = gc.getHeight()/2;
-        //shiftX = gc.getWidth()/2;
+        chunkX = 0;
+        chunkY = 0;
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -44,9 +44,11 @@ public class Play extends BasicGameState{
         chunkHandler.render(camera);
 
         skeleton.render(camera);
-
         g.drawString("Plaer X: " + (camera.getX()) + "\nPlayer Y: " + camera.getY(), 400, 20); //indicator to see where bucky is in his world
-        g.drawString("Player X: " + ((camera.getX())-(gc.getWidth()/2)) + "\nPlayer Y: " + (camera.getY()-(gc.getHeight())/2), 400, 80); //indicator to see where bucky is in his world
+        //g.drawString("Player X: " + ((camera.getX())-(gc.getWidth()/2)) + "\nPlayer Y: " + (camera.getY()-(gc.getHeight())/2), 400, 80); //indicator to see where bucky is in his world
+        //g.drawString("CameraX: " + (-camera.getX()) + "   CameraY: " + (-camera.getY()), 400, 80); 
+        //g.drawString("CameraX: " + (-camera.getX()+gc.getWidth()/2) + "   CameraY: " + (-camera.getY()+gc.getHeight()/2), 400, 80);
+        g.drawString("chunkX: " + chunkX + "   chunkY: " + chunkY, 400, 80);
         g.setColor(Color.red);
         g.draw(new Rectangle(0+(camera.getX()),0+camera.getY(),32,32));
         g.draw(new Rectangle(0+(camera.getX()),0+camera.getY(),16,16));
@@ -59,7 +61,11 @@ public class Play extends BasicGameState{
         moving = false;
         Input input = gc.getInput();
         
-        camera.update(input, delta);
+        boolean moving = camera.update(input, delta);
+        if(moving){
+            chunkX = Math.floor((-camera.getX()+(gc.getWidth()/2))/1024);
+            chunkY = Math.floor((-camera.getY()+(gc.getHeight()/2))/1024);
+        }
 
         if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
             s.setLocation(input.getMouseX(), input.getMouseY());
@@ -69,4 +75,5 @@ public class Play extends BasicGameState{
     public int getID() {
         return 1;
     }
+    
 }

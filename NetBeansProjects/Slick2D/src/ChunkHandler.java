@@ -26,8 +26,8 @@ public class ChunkHandler {
         chunks = new HashMap<String, MapChunk>();
         fixedNoise = new FixedNoise();
 
-        for (int x = -1; x < 1; x++) {
-            for (int y = -1; y < 1; y++) {
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
                 m = new MapChunk(x, y, fixedNoise);
                 chunks.put(m.getKey(), m);
             }
@@ -38,8 +38,8 @@ public class ChunkHandler {
     }
 
     public void render(float playerX, float playerY) {
-        for (int x = -1; x < 10; x++) {
-            for (int y = -1; y < 10; y++) {
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
                 chunks.get("" + x + y).render((x * chunkSize * tileSize) + playerX, (y * chunkSize * tileSize) + playerY);
             }
         }
@@ -51,8 +51,8 @@ public class ChunkHandler {
     }
 
     void render(Camera camera) {
-        for (int x = -1; x < 1; x++) {
-            for (int y = -1; y < 1; y++) {
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
                 chunks.get("" + x +","+ y).render((x * chunkSize * tileSize) + camera.getX(), (y * chunkSize * tileSize) + camera.getY());
             }
         }

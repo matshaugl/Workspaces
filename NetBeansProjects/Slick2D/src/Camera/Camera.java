@@ -39,19 +39,25 @@ public class Camera {
         cameraY = y;
     }
 
-    public void update(Input input, int delta) {
+    public boolean update(Input input, int delta) {
         //during the game if the user hits the up arrow...
+        boolean moving = false;
         if (input.isKeyDown(Input.KEY_W)) {
             cameraY += delta * .5f;
+            moving = true;
         }
         if (input.isKeyDown(Input.KEY_S)) {
             cameraY -= delta * .5f;
+            moving = true;
         }
         if (input.isKeyDown(Input.KEY_A)) {
             cameraX += delta * .5f;
+            moving = true;
         }
         if (input.isKeyDown(Input.KEY_D)) {
             cameraX -= delta * .5f;
+            moving = true;
         }        
+        return moving;
     }
 }

@@ -20,7 +20,7 @@ public class FixedNoise {
         xinArray = new double[10];
         
         for (int i=0; i<10; i++){
-            randomArray[i] = r.nextDouble();
+            randomArray[i] = r.nextDouble()*10000;
         }
         
         influence [0] = 0; //4
