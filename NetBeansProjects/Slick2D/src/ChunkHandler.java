@@ -21,6 +21,8 @@ public class ChunkHandler {
     int chunkSize;
     int tileSize;
     FixedNoise fixedNoise;
+    int currentX;
+    int currentY;
 
     public ChunkHandler() {
         chunks = new HashMap<String, MapChunk>();
@@ -35,6 +37,8 @@ public class ChunkHandler {
 
         chunkSize = 32;
         tileSize = 32;
+        currentX = 0;
+        currentY = 0;
     }
 
     public void render(float playerX, float playerY) {
@@ -51,10 +55,71 @@ public class ChunkHandler {
     }
 
     void render(Camera camera) {
-        for (int x = -1; x < 2; x++) {
-            for (int y = -1; y < 2; y++) {
-                chunks.get("" + x +","+ y).render((x * chunkSize * tileSize) + camera.getX(), (y * chunkSize * tileSize) + camera.getY());
-            }
+        try{
+        chunks.get("" + (currentX-1) +","+ (currentY-1)).render(((currentX-1) * chunkSize * tileSize) + camera.getX(), ((currentY-1) * chunkSize * tileSize) + camera.getY());
+        chunks.get("" + (currentX) +","+ (currentY-1)).render(((currentX) * chunkSize * tileSize) + camera.getX(), ((currentY-1) * chunkSize * tileSize) + camera.getY());
+        chunks.get("" + (currentX+1) +","+ (currentY-1)).render(((currentX+1) * chunkSize * tileSize) + camera.getX(), ((currentY-1) * chunkSize * tileSize) + camera.getY());
+        
+        chunks.get("" + (currentX-1) +","+ (currentY)).render(((currentX-1) * chunkSize * tileSize) + camera.getX(), ((currentY) * chunkSize * tileSize) + camera.getY());
+        chunks.get("" + (currentX) +","+ (currentY)).render(((currentX) * chunkSize * tileSize) + camera.getX(), ((currentY) * chunkSize * tileSize) + camera.getY());
+        chunks.get("" + (currentX+1) +","+ (currentY)).render(((currentX+1) * chunkSize * tileSize) + camera.getX(), ((currentY) * chunkSize * tileSize) + camera.getY());
+        
+        chunks.get("" + (currentX-1) +","+ (currentY+1)).render(((currentX-1) * chunkSize * tileSize) + camera.getX(), ((currentY+1) * chunkSize * tileSize) + camera.getY());
+        chunks.get("" + (currentX) +","+ (currentY+1)).render(((currentX) * chunkSize * tileSize) + camera.getX(), ((currentY+1) * chunkSize * tileSize) + camera.getY());
+        chunks.get("" + (currentX+1) +","+ (currentY+1)).render(((currentX+1) * chunkSize * tileSize) + camera.getX(), ((currentY+1) * chunkSize * tileSize) + camera.getY());
+        } catch (Exception e) {
+            
+        }
+    }
+
+    void update(int chunkX, int chunkY) {
+        if(currentX!=chunkX || currentY != chunkY){
+            addChunks(chunkX, chunkY);
+            currentX = chunkX;
+            currentY = chunkY;
+        }
+        currentX = chunkX;
+        currentY = chunkY;
+    }
+
+    private void addChunks(int chunkX, int chunkY) {
+        if(!chunks.containsKey(""+(chunkX-1) + "," + (chunkY-1))){
+            MapChunk newChunk = new MapChunk(chunkX-1,chunkY-1, fixedNoise); 
+            chunks.put(newChunk.getKey(), newChunk);
+        }
+        if(!chunks.containsKey(""+(chunkX) + "," + (chunkY-1))){
+            MapChunk newChunk = new MapChunk(chunkX,chunkY-1, fixedNoise); 
+            chunks.put(newChunk.getKey(), newChunk);
+        }
+        if(!chunks.containsKey(""+(chunkX+1) + "," + (chunkY-1))){
+            MapChunk newChunk = new MapChunk(chunkX+1,chunkY-1, fixedNoise); 
+            chunks.put(newChunk.getKey(), newChunk);
+        }
+        
+        if(!chunks.containsKey(""+(chunkX-1) + "," + (chunkY))){
+            MapChunk newChunk = new MapChunk(chunkX-1,chunkY, fixedNoise); 
+            chunks.put(newChunk.getKey(), newChunk);
+        }
+        if(!chunks.containsKey(""+(chunkX) + "," + (chunkY))){
+            MapChunk newChunk = new MapChunk(chunkX,chunkY, fixedNoise); 
+            chunks.put(newChunk.getKey(), newChunk);
+        }
+        if(!chunks.containsKey(""+(chunkX+1) + "," + (chunkY))){
+            MapChunk newChunk = new MapChunk(chunkX+1,chunkY, fixedNoise); 
+            chunks.put(newChunk.getKey(), newChunk);
+        }
+        
+        if(!chunks.containsKey(""+(chunkX-1) + "," + (chunkY+1))){
+            MapChunk newChunk = new MapChunk(chunkX-1,chunkY+1, fixedNoise); 
+            chunks.put(newChunk.getKey(), newChunk);
+        }
+        if(!chunks.containsKey(""+(chunkX) + "," + (chunkY+1))){
+            MapChunk newChunk = new MapChunk(chunkX,chunkY+1, fixedNoise); 
+            chunks.put(newChunk.getKey(), newChunk);
+        }
+        if(!chunks.containsKey(""+(chunkX+1) + "," + (chunkY+1))){
+            MapChunk newChunk = new MapChunk(chunkX+1,chunkY+1, fixedNoise); 
+            chunks.put(newChunk.getKey(), newChunk);
         }
     }
 

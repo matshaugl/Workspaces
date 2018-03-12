@@ -12,8 +12,8 @@ public class Play extends BasicGameState{
     Player mob;
     Tree tree;
     int p;
-    double chunkX;
-    double chunkY;
+    int chunkX;
+    int chunkY;
 
     ChunkHandler chunkHandler;
     Camera camera;
@@ -63,8 +63,9 @@ public class Play extends BasicGameState{
         
         boolean moving = camera.update(input, delta);
         if(moving){
-            chunkX = Math.floor((-camera.getX()+(gc.getWidth()/2))/1024);
-            chunkY = Math.floor((-camera.getY()+(gc.getHeight()/2))/1024);
+            chunkX = (int)Math.floor((-camera.getX()+(gc.getWidth()/2))/1024);
+            chunkY = (int)Math.floor((-camera.getY()+(gc.getHeight()/2))/1024);
+            chunkHandler.update(chunkX,chunkY);
         }
 
         if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
