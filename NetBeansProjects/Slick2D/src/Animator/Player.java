@@ -31,7 +31,7 @@ public class Player {
         movingDown = animator.getAnimation(2);
         movingRight = animator.getAnimation(3);
         dir = 2;
-        xPos = 0;
+        xPos = 500;
         yPos = 0;
         spriteShiftX = -16;
         spriteShiftY = -42;

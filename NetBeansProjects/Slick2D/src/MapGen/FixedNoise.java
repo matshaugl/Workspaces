@@ -23,21 +23,21 @@ public class FixedNoise {
             randomArray[i] = r.nextDouble()*10000;
         }
         
-        influence [0] = 0; //4
-        influence [1] = 0; //8
-        influence [2] = 0; //16
-        influence [3] = 0; //16
+        influence [0] = 8; //4
+        influence [1] = 12; //8
+        influence [2] = 15; //16
+        influence [3] = 80; //16
         influence [4] = 100; //64
         influence [5] = 0; //128
         influence [6] = 0; //256 maks
         influence [7] = 0; //512
         influence [8] = 0; //1024
         influence [9] = 0; //2048
-        xinArray[0] = 5;
-        xinArray[1] = 10;
-        xinArray[2] = 15;
-        xinArray[3] = 20;
-        xinArray[4] = 30;
+        xinArray[0] = 20; //5
+        xinArray[1] = 30; //10
+        xinArray[2] = 50; //15
+        xinArray[3] = 100; //20
+        xinArray[4] = 300;
         xinArray[5] = 60;
         xinArray[6] = 256;
         xinArray[7] = 512;
