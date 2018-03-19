@@ -11,6 +11,9 @@ public class Play extends BasicGameState{
     Player skeleton;
     Player mob;
     Tree tree;
+    Tree tree1;
+    Tree tree2;
+    Tree tree3;
     int p;
     int chunkX;
     int chunkY;
@@ -27,7 +30,10 @@ public class Play extends BasicGameState{
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         camera = new Camera(150,-120);
-        tree = new Tree(1,0);
+        tree = new Tree(0,0);
+        tree3 = new Tree(0,1);
+        tree2 = new Tree(1,0);
+        tree1 = new Tree(1,1);
         s = new Circle(11,11,15);
         s.setCenterX(gc.getWidth()/2);
         s.setCenterY(gc.getHeight()/2);
@@ -55,6 +61,9 @@ public class Play extends BasicGameState{
         g.draw(s);
         
         tree.render((camera.getX()), camera.getY());
+        tree2.render((camera.getX()), camera.getY());
+        tree3.render((camera.getX()), camera.getY());
+        tree1.render((camera.getX()), camera.getY());
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
