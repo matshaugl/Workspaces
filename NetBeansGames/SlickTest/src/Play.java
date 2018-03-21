@@ -22,13 +22,13 @@ public class Play extends BasicGameState{
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        player.render();
+        player.render(g);
     
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         Input input = gc.getInput();
-        player.update(input, delta); 
+        player.update(gc, input, delta); 
     }
 
     public int getID() {
