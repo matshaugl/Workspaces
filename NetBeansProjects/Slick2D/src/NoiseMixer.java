@@ -1,5 +1,5 @@
 
-import MapGen.SimplexNoise;
+import mapgen.noise.SimplexNoise;
 import java.util.Random;
 
 
