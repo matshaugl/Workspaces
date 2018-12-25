@@ -17,6 +17,8 @@ public abstract class Animal {
     Animation north;
     Animation west;
     Animation east;
+    
+    Animator animator;
 
     Direction direction;
 
@@ -25,6 +27,7 @@ public abstract class Animal {
 
     public Animal() {
         direction = Direction.SOUTH;
+        animator = new Animator(;
     }
 
     public void update() {
