@@ -12,13 +12,13 @@
         <group name="NetBeansProjects">
             <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/gameobject/Tree.java</file>
             <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/Game.java</file>
+            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/noise/TileNoise.java</file>
+            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/noise/TreeNoise.java</file>
             <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/Play.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/MapGen/noise/TileNoise.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/MapGen/noise/TreeNoise.java</file>
+            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/MapGen.java</file>
             <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/Animator/Player.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/MapGen/MapChunk.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/MapGen/TreeChunk.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/MapGen/MapGen.java</file>
+            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/MapChunk.java</file>
+            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/TreeChunk.java</file>
             <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/ChunkHandler.java</file>
             <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/res/tree.png</file>
         </group>
