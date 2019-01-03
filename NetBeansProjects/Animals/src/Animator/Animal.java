@@ -27,7 +27,7 @@ public abstract class Animal {
 
     public Animal() {
         direction = Direction.SOUTH;
-        animator = new Animator(;
+        animator = new Animator();
     }
 
     public void update() {
