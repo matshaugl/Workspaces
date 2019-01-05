@@ -10,26 +10,31 @@ import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
 public class Map implements TileBasedMap {
-
+    
     Image mapPng;
     Image renderMap;
     Image tileSprite;
     SpriteSheet tiles;
-
-    public void init() {
+    int width;
+    int height;
+    
+    public void init(){
         Graphics g = null;
         try {
-            mapPng = new Image("res/map.png", false, Image.FILTER_NEAREST);
-            tileSprite = new Image("res/mapSheet.png", false, Image.FILTER_NEAREST);
-            renderMap = new Image(20 * 32, 20 * 32);
+            mapPng = new Image ("res/map.png", false, Image.FILTER_NEAREST);
+            width = mapPng.getWidth();
+            height = mapPng.getHeight();
+            tileSprite = new Image ("res/mapSheet.png", false, Image.FILTER_NEAREST);
+            renderMap = new Image(width*32, height*32);
             g = renderMap.getGraphics();
         } catch (SlickException ex) {
             Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tiles = new SpriteSheet(tileSprite, 32, 32);
-        for (int x = 0; x < 20; x++) {
-            for (int y = 0; y < 20; y++) {
-                if (mapPng.getColor(x, y).equals(Color.black)) {
+        tiles = new SpriteSheet(tileSprite,32,32);
+        
+        for(int x=0; x<width; x++){
+            for(int y=0; y<height; y++){
+                if(mapPng.getColor(x, y).equals(Color.black)){
                     g.drawImage(tiles.getSprite(0, 0), x * 32, y * 32);
                 } else {
                     g.drawImage(tiles.getSprite(2, 0), x * 32, y * 32);
@@ -37,25 +42,26 @@ public class Map implements TileBasedMap {
             }
         }
         g.flush();
-
+        
+        
     }
-
-    public void render(Graphics g) {
+    
+    public void render(Graphics g){
         g.drawImage(renderMap, 0, 0);
     }
-
-    public void update() {
-
+    
+    public void update(){
+        
     }
 
     @Override
     public int getWidthInTiles() {
-        return 20;
+        return width;
     }
 
     @Override
     public int getHeightInTiles() {
-        return 20;
+        return width;
     }
 
     @Override
@@ -65,12 +71,22 @@ public class Map implements TileBasedMap {
 
     @Override
     public boolean blocked(PathFindingContext context, int tx, int ty) {
+        if(mapPng.getColor(tx, ty).equals(Color.black)){
+            return true;
+        } 
         return false;
     }
 
     @Override
-    public float getCost(PathFindingContext context, int tx, int ty) {
+    public float getCost(PathFindingContext context, int tx, int ty) {    
         return 1;
     }
 
+    public boolean blocked(int tx, int ty) {
+        if(mapPng.getColor(tx, ty).equals(Color.black)){
+            return true;
+        } 
+        return false;
+    }
+    
 }
