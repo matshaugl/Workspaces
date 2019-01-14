@@ -27,10 +27,13 @@ public class Tree {
     public Tree(int x, int y) {
         tX = x;
         tY = y;
-        treeXoff = -30;
-        treeYoff = -84;
+        //treeXoff = -30;
+        //treeYoff = -84;
+        treeXoff = -32;
+        treeYoff = -96;
+
         try {
-            m = new Image("res/tree.png");
+            m = new Image("res/tree2.png");
         } catch (SlickException ex) {
             Logger.getLogger(Tree.class.getName()).log(Level.SEVERE, null, ex);
         }

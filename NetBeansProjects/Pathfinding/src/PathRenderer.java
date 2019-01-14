@@ -11,33 +11,34 @@ import org.newdawn.slick.util.pathfinding.Path;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author matsh
  */
-public class PathRenderer{
-    
+public class PathRenderer {
+
     Image pathImage;
     Path path;
-    
-    public PathRenderer(Path p){
-        path = p;
+
+    public PathRenderer() {
         try {
             pathImage = new Image("res/path.png");
         } catch (SlickException ex) {
             Logger.getLogger(PathRenderer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void render(Graphics g){
-        for(int i=0; i<path.getLength(); i++){
-            g.drawImage(pathImage, path.getStep(i).getX() * 32, path.getStep(i).getY() * 32);
+
+    public void render(Graphics g) {
+        if (path != null) {
+            for (int i = 0; i < path.getLength(); i++) {
+                g.drawImage(pathImage, path.getStep(i).getX() * 32, path.getStep(i).getY() * 32);
+            }
         }
+
     }
 
     void updatePath(Path path) {
         this.path = path;
     }
-    
+
 }

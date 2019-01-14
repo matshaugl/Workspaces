@@ -76,6 +76,7 @@ public class Play extends BasicGameState {
 
         if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             s.setLocation(input.getMouseX(), input.getMouseY());
+
             System.out.println("" + (input.getMouseX() - camera.getX()) + ", " + (input.getMouseY() - camera.getY()));
         }
     }

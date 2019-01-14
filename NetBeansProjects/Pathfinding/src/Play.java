@@ -11,8 +11,6 @@ public class Play extends BasicGameState {
     Map map;
     Chicken chicken;
     AStarPathFinder pFinder;
-    Path path;
-    Path newPath;
     PathRenderer pr;
 
     public Play(int state) {
@@ -22,11 +20,9 @@ public class Play extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         map = new Map();
         map.init();
-        chicken = new Chicken(1, 1);
+        chicken = new Chicken(map, 1, 1);
         pFinder = new AStarPathFinder(map, 200, false);
-        path = pFinder.findPath(chicken, 2, 2, 18, 10);
-        newPath = pFinder.findPath(chicken, 2, 2, 18, 10);
-        pr = new PathRenderer(path);
+        pr = new PathRenderer();
 
     }
 
@@ -34,18 +30,20 @@ public class Play extends BasicGameState {
         //g.scale(1.5f, 1.5f);
         map.render(g);
         chicken.render(g);
-        
+
         pr.render(g);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        
+
         Input input = gc.getInput();
         if (input.isMousePressed(0)) {
             int xPos = input.getMouseX() / 32;
             int yPos = input.getMouseY() / 32;
-            
-            chicken.moveTo(pFinder.findPath(chicken, chicken.x, chicken.y, xPos, yPos));
+
+            chicken.moveTo(xPos, yPos);
+
+            //chicken.moveTo(pFinder.findPath(chicken, chicken.x, chicken.y, xPos, yPos));
             pr.updatePath(chicken.getPaht());
             //newPath = pFinder.findPath(chicken, chicken.x, chicken.y, xPos, yPos);
             //System.out.println("x: " + input.getMouseX() / 32 + "y: " + input.getMouseY() / 32);
@@ -53,7 +51,6 @@ public class Play extends BasicGameState {
         }
         chicken.update(gc.getInput(), delta, map);
     }
-    
 
     public int getID() {
         return 1;
