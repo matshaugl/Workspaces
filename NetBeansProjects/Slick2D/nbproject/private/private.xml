@@ -10,18 +10,11 @@
             <file>file:/C:/Users/matsh/Documents/NetBeansProjects/Slick2D/src/NoiseMixer.java</file>
         </group>
         <group name="NetBeansProjects">
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/gameobject/Tree.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/Game.java</file>
             <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/noise/TileNoise.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/noise/TreeNoise.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/Play.java</file>
             <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/MapGen.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/Tree.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/Animator/Player.java</file>
+            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/noise/SimplexNoise.java</file>
             <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/MapChunk.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/mapgen/TreeChunk.java</file>
             <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/ChunkHandler.java</file>
-            <file>file:/D:/Workspaces/NetBeansProjects/Slick2D/src/res/tree.png</file>
         </group>
     </open-files>
 </project-private>
