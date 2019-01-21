@@ -5,6 +5,8 @@
  */
 package mapgen;
 
+import Camera.Camera;
+
 /**
  *
  * @author matsh
@@ -18,7 +20,16 @@ public class Map {
     }
 
     public Map(ChunkHandler chunkHandler) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.chunkHandler = chunkHandler;
+        
+    }
+
+    public void render(Camera camera) {
+        chunkHandler.render(camera);
+    }
+
+    public void update(int chunkX, int chunkY) {
+        chunkHandler.update(chunkX, chunkY);
     }
 
 }

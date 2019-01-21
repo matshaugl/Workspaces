@@ -51,8 +51,10 @@ public class Play extends BasicGameState {
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        
+        map.render(camera);
 
-        chunkHandler.render(camera);
+        //chunkHandler.render(camera);
 
         skeleton.render(camera);
         g.drawString("Plaer X: " + (camera.getX()) + "\nPlayer Y: " + camera.getY(), 400, 20); //indicator to see where bucky is in his world
@@ -75,7 +77,8 @@ public class Play extends BasicGameState {
         if (moving) {
             chunkX = (int) Math.floor((-camera.getX() + (gc.getWidth() / 2)) / 1024);
             chunkY = (int) Math.floor((-camera.getY() + (gc.getHeight() / 2)) / 1024);
-            chunkHandler.update(chunkX, chunkY);
+            map.update(chunkX, chunkY);
+            //chunkHandler.update(chunkX, chunkY);
         }
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
