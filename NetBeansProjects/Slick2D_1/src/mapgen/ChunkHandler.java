@@ -1,3 +1,4 @@
+package mapgen;
 
 import Camera.Camera;
 import mapgen.noise.TileNoise;
@@ -56,7 +57,7 @@ public class ChunkHandler {
 
     }
 
-    void render(Camera camera) {
+    public void render(Camera camera) {
         try {
             for (int x = -1; x < 2; x++) {
                 for (int y = -1; y < 2; y++) {
@@ -77,7 +78,7 @@ public class ChunkHandler {
         }
     }
 
-    void update(int chunkX, int chunkY) {
+    public void update(int chunkX, int chunkY) {
         if (currentX != chunkX || currentY != chunkY) {
             addChunks(chunkX, chunkY);
             currentX = chunkX;

@@ -1,7 +1,9 @@
 
+import mapgen.ChunkHandler;
 import gameobject.Tree;
 import Camera.Camera;
 import Animator.*;
+import mapgen.Map;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
@@ -18,6 +20,7 @@ public class Play extends BasicGameState {
     int chunkY;
 
     ChunkHandler chunkHandler;
+    Map map;
     Camera camera;
     Image worldMap;
     boolean quit = false;
@@ -39,6 +42,7 @@ public class Play extends BasicGameState {
         chunkHandler = new ChunkHandler();
         chunkX = 0;
         chunkY = 0;
+        map = new Map(chunkHandler);
         /*
         Graphics g = gc.getGraphics();
         g.setWorldClip((int) 0, (int) 0, (int) 500, (int) 500);
@@ -74,10 +78,13 @@ public class Play extends BasicGameState {
             chunkHandler.update(chunkX, chunkY);
         }
 
-        if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             s.setLocation(input.getMouseX(), input.getMouseY());
 
-            System.out.println("" + (input.getMouseX() - camera.getX()) + ", " + (input.getMouseY() - camera.getY()));
+            int mousePX = (int) (input.getMouseX() - camera.getX()) / 32;
+            int mousePY = (int) (input.getMouseY() - camera.getY()) / 32;
+
+            System.out.println("" + mousePX + ", " + mousePY);
         }
     }
 

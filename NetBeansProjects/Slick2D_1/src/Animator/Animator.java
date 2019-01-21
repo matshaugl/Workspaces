@@ -1,6 +1,5 @@
 package Animator;
 
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.Animation;
@@ -12,16 +11,15 @@ import org.newdawn.slick.SpriteSheet;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Mats
  */
 public class Animator {
-    
+
     private SpriteSheet sheet;
-    
-    public Animator(){
+
+    public Animator() {
         try {
             sheet = new SpriteSheet("res/BODY_skeleton.png", 64, 64);
         } catch (SlickException ex) {
@@ -31,8 +29,8 @@ public class Animator {
 
     public Animation getAnimation(int row) {
         Image[] images = new Image[8];
-        for(int i=0; i<8; i++){
-            Image image = sheet.getSprite(i+1, row);
+        for (int i = 0; i < 8; i++) {
+            Image image = sheet.getSprite(i + 1, row);
             images[i] = image;
         }
         System.out.println(images);
