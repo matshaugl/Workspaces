@@ -22,6 +22,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class MapChunk {
 
     Image mapImage;
+    Image miniMapImage;
     SpriteSheet sheet;
 
     TileNoise fixedNoise;
@@ -48,42 +49,47 @@ public class MapChunk {
         }
     }
 
+    public Image getMiniMapImage() {
+        return miniMapImage;
+    }
+
     public void init() throws SlickException {
         mapImage = new Image(size * tileSize, size * tileSize);
         sheet = new SpriteSheet("res/sandwaterbinary2.png", 32, 32);
         makeTerrainTypeArray();
+        makeMiniMap();
         makeMapImage();
 
     }
 
     public void render(float shiftX, float shiftY) {
         mapImage.draw(shiftX, shiftY);
-        
+
         Graphics g = null;
         try {
             g = mapImage.getGraphics();
         } catch (SlickException ex) {
             Logger.getLogger(MapChunk.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        g.draw(new Rectangle(1, 1, 32*32-1, 32*32-1));
+
+        g.draw(new Rectangle(1, 1, 32 * 32 - 1, 32 * 32 - 1));
         g.flush();
     }
 
     public void update() {
 
     }
-    
-    public int getX(){
+
+    public int getX() {
         return chunkX;
     }
-    
-    public int getY(){
+
+    public int getY() {
         return chunkY;
     }
-    
-    public String getKey(){
-        return ""+chunkX+","+chunkY;
+
+    public String getKey() {
+        return "" + chunkX + "," + chunkY;
     }
 
     private void makeTerrainTypeArray() {
@@ -157,12 +163,45 @@ public class MapChunk {
                     if (terrainTypeArray[tX + 1][tY] == TerrainType.GRASS) {
                         spriteNumber = spriteNumber + 8;
                     }
-                    if (spriteNumber!=15){
+                    if (spriteNumber != 15) {
                         g.drawImage(sheet.getSprite(0, 15), x * tileSize, y * tileSize);
                     }
                     g.drawImage(sheet.getSprite(1, spriteNumber), x * tileSize, y * tileSize);
                     //7g.setColor(Color.red);
                     //g.drawString("G", (x * tileSize) + 10, (y * tileSize) + 7);
+                }
+
+            }
+            //System.out.println();
+        }
+
+        g.flush();
+    }
+
+    private void makeMiniMap() throws SlickException {
+        Graphics g = null;
+        miniMapImage = new Image(32, 32);
+        g = miniMapImage.getGraphics();
+
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                int tX = x + 1;
+                int tY = y + 1;
+                //System.out.print(terrainTypeArray[x][y] + "   ");
+                if (terrainTypeArray[tX][tY] == TerrainType.WATER) {
+                    //156C99
+                    g.setColor(new Color(21, 108, 153));
+                    g.fillRect(x, y, 1, 1);
+                }
+                if (terrainTypeArray[tX][tY] == TerrainType.GRASS) {
+                    //2F8136
+                    g.setColor(new Color(47, 129, 54));
+                    g.fillRect(x, y, 1, 1);
+                }
+                if (terrainTypeArray[tX][tY] == TerrainType.SAND) {
+                    //EEEC69
+                    g.setColor(new Color(238, 236, 105));
+                    g.fillRect(x, y, 1, 1);
                 }
 
             }

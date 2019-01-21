@@ -6,6 +6,7 @@
 package mapgen;
 
 import Camera.Camera;
+import org.newdawn.slick.Image;
 
 /**
  *
@@ -19,9 +20,15 @@ public class Map {
 
     }
 
+    public Image makeMiniMap() {
+        MapChunk mc = chunkHandler.getChunk(0, 0);
+        Image img = mc.getMiniMapImage();
+        return img;
+    }
+
     public Map(ChunkHandler chunkHandler) {
         this.chunkHandler = chunkHandler;
-        
+
     }
 
     public void render(Camera camera) {

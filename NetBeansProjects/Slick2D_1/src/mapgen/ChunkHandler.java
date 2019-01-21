@@ -57,6 +57,10 @@ public class ChunkHandler {
 
     }
 
+    public MapChunk getChunk(int x, int y) {
+        return mapChunks.get("" + x + "," + y);
+    }
+
     public void render(Camera camera) {
         try {
             for (int x = -1; x < 2; x++) {
