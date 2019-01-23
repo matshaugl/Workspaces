@@ -66,7 +66,7 @@ public class Play extends BasicGameState {
         g.draw(new Rectangle(0 + (camera.getX()), 0 + camera.getY(), 16, 16));
         g.draw(s);
 
-        map.makeMiniMap().draw(0, 0);
+        map.makeMiniMap().draw(200, 200);
 
     }
 

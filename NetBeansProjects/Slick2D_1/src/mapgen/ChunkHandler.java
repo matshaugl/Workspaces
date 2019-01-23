@@ -36,8 +36,8 @@ public class ChunkHandler {
         mapNoise = new TileNoise();
         treeNoise = new TreeNoise();
 
-        for (int x = -1; x < 2; x++) {
-            for (int y = -1; y < 2; y++) {
+        for (int x = -3; x < 4; x++) {
+            for (int y = -3; y < 4; y++) {
                 m = new MapChunk(x, y, mapNoise);
                 t = new TreeChunk(x, y, treeNoise, mapNoise);
                 mapChunks.put(m.getKey(), m);

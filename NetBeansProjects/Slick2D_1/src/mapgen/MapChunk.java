@@ -45,6 +45,7 @@ public class MapChunk {
         try {
             init();
         } catch (SlickException ex) {
+            System.out.println("MapChunkError");
             Logger.getLogger(MapChunk.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -69,6 +70,7 @@ public class MapChunk {
         try {
             g = mapImage.getGraphics();
         } catch (SlickException ex) {
+            System.out.println("MapchunkrenderError");
             Logger.getLogger(MapChunk.class.getName()).log(Level.SEVERE, null, ex);
         }
 
