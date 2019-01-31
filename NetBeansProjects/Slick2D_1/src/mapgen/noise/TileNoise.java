@@ -9,10 +9,12 @@ public class TileNoise {
     double[] xinArray;
     double noiseArray[];
     double randomArray[];
+    OpenSimplexNoise openNoise;
     
 
     
     public TileNoise() {
+        openNoise = new OpenSimplexNoise();
         Random r = new Random();
         noiseArray = new double[10];
         influence = new double[10];
@@ -65,8 +67,12 @@ public class TileNoise {
         
         double xin = 4.0;
         for(int i=0; i<10; i++){
-            noiseArray[i] = SimplexNoise.noise(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
+            //Funka noiseArray[i] = SimplexNoise.noise(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
             //noiseArray[i] = SimplexNoise.noise(x / xin + randomArray[i], y / xin + randomArray[i]);
+            //noiseArray[i] = noise.eval(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
+            
+            noiseArray[i] = openNoise.eval(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
+            //noiseArray[i] = OpenSimplexNoise.noise(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
             xin = xin * 2.0;
         }
         for(int i=0; i<10; i++){
