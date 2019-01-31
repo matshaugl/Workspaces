@@ -67,11 +67,12 @@ public class TileNoise {
         
         double xin = 4.0;
         for(int i=0; i<10; i++){
-            //Funka noiseArray[i] = SimplexNoise.noise(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
+            noiseArray[i] = openNoise.eval(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
+            //noiseArray[i] = SimplexNoise.noise(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
+            
             //noiseArray[i] = SimplexNoise.noise(x / xin + randomArray[i], y / xin + randomArray[i]);
             //noiseArray[i] = noise.eval(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
             
-            noiseArray[i] = openNoise.eval(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
             //noiseArray[i] = OpenSimplexNoise.noise(x / xinArray[i] + randomArray[i], y / xinArray[i] + randomArray[i]);
             xin = xin * 2.0;
         }

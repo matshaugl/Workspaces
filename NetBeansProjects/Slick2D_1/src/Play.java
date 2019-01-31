@@ -14,6 +14,7 @@ public class Play extends BasicGameState {
     Circle s;
     Player skeleton;
     Player mob;
+    
 
     int p;
     int chunkX;
