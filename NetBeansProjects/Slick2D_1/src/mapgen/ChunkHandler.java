@@ -5,8 +5,14 @@ import mapgen.noise.TileNoise;
 import mapgen.MapChunk;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mapgen.TreeChunk;
 import mapgen.noise.TreeNoise;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,16 +35,31 @@ public class ChunkHandler {
     TreeNoise treeNoise;
     int currentX;
     int currentY;
+    Image miniMap;
+    //Image bufferedImage;
+    //Graphics bufferedG;
 
     public ChunkHandler() {
+        /*
+        try {
+            bufferedImage = new Image(1024,1024);
+            bufferedG = bufferedImage.getGraphics();
+            System.out.println("Made buffered Image");
+        } catch (SlickException ex) {
+            Logger.getLogger(ChunkHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        */
         mapChunks = new HashMap<String, MapChunk>();
         treeChunks = new HashMap<String, TreeChunk>();
         mapNoise = new TileNoise();
         treeNoise = new TreeNoise();
+        makeMiniMap();
 
-        for (int x = -3; x < 4; x++) {
-            for (int y = -3; y < 4; y++) {
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
                 m = new MapChunk(x, y, mapNoise);
+                //m.makeMapImage(bufferedG, bufferedImage);
+                m.makeMapImage();
                 t = new TreeChunk(x, y, treeNoise, mapNoise);
                 mapChunks.put(m.getKey(), m);
                 treeChunks.put(t.getKey(), t);
@@ -51,6 +72,36 @@ public class ChunkHandler {
         tileSize = 32;
         currentX = 0;
         currentY = 0;
+    }
+    
+    public void makeMiniMap(){
+        MapChunk[][] minimapChunks = new MapChunk[10][10];
+        Graphics g = null;
+        for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 10; y++) {
+                m = new MapChunk(x-5, y-5, mapNoise);
+                minimapChunks[x][y] = m;
+            }
+        }
+        try {
+            miniMap = new Image(320, 320);
+            g = miniMap.getGraphics();
+        } catch (SlickException ex) {
+            Logger.getLogger(ChunkHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 10; y++) {
+                for(int i=0; i<32; i++){
+                    for(int j=0; j<32; j++){
+                        g.setColor(minimapChunks[x][y].getMiniMapColor(i,j));
+                        g.fillRect((x*32)+i, (y*32)+j, 1, 1);
+                        //System.out.print("X: " + ((x*32)+i) + "Y: " + ((y*32)+j));
+                    }
+                    //System.out.println("");
+                }
+            }
+        }
+        g.flush();
     }
 
     public void update() {
@@ -97,6 +148,8 @@ public class ChunkHandler {
             for (int y = -1; y < 2; y++) {
                 if (!mapChunks.containsKey("" + (chunkX + x) + "," + (chunkY + y))) {
                     MapChunk newChunk = new MapChunk(chunkX + x, chunkY + y, mapNoise);
+                    //newChunk.makeMapImage(bufferedG, bufferedImage);
+                    newChunk.makeMapImage();
                     mapChunks.put(newChunk.getKey(), newChunk);
                 }
                 if (!treeChunks.containsKey("" + (chunkX + x) + "," + (chunkY + y))) {
@@ -105,6 +158,10 @@ public class ChunkHandler {
                 }
             }
         }
+    }
+
+    Image getMiniMap() {
+        return miniMap;
     }
 
 }

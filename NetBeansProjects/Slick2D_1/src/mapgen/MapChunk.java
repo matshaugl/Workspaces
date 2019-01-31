@@ -42,24 +42,26 @@ public class MapChunk {
         terrainTypeArray = new TerrainType[size + 2][size + 2];
         chunkX = x;
         chunkY = y;
-        try {
-            init();
-        } catch (SlickException ex) {
-            System.out.println("MapChunkError");
-            Logger.getLogger(MapChunk.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        init();
+
     }
 
     public Image getMiniMapImage() {
         return miniMapImage;
     }
 
-    public void init() throws SlickException {
-        mapImage = new Image(size * tileSize, size * tileSize);
-        sheet = new SpriteSheet("res/sandwaterbinary2.png", 32, 32);
-        makeTerrainTypeArray();
-        makeMiniMap();
-        makeMapImage();
+    public void init() {
+        try {
+            mapImage = new Image(size * tileSize, size * tileSize);
+            sheet = new SpriteSheet("res/sandwaterbinary2.png", 32, 32);
+            makeTerrainTypeArray();
+            makeMiniMap();
+            //makeMapImage();
+        } catch (SlickException ex) {
+            System.out.println("MapChunkError");
+            Logger.getLogger(MapChunk.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -123,9 +125,13 @@ public class MapChunk {
         return noiseMap;
     }
 
-    private void makeMapImage() throws SlickException {
+    public void makeMapImage() {
         Graphics g = null;
-        g = mapImage.getGraphics();
+        try {
+            g = mapImage.getGraphics();
+        } catch (SlickException ex) {
+            Logger.getLogger(MapChunk.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
@@ -178,6 +184,26 @@ public class MapChunk {
         }
 
         g.flush();
+        //g.copyArea(mapImage, 0, 0);
+    }
+
+    public Color getMiniMapColor(int x, int y) {
+        int tX = x + 1;
+        int tY = y + 1;
+
+        if (terrainTypeArray[tX][tY] == TerrainType.WATER) {
+            //156C99
+            return new Color(21, 108, 153);
+        }
+        if (terrainTypeArray[tX][tY] == TerrainType.GRASS) {
+            //2F8136
+            return new Color(47, 129, 54);
+        }
+        if (terrainTypeArray[tX][tY] == TerrainType.SAND) {
+            //EEEC69
+            return new Color(238, 236, 105);
+        }
+        return new Color(0, 0, 0);
     }
 
     private void makeMiniMap() throws SlickException {

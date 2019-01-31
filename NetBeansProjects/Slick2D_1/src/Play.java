@@ -26,11 +26,13 @@ public class Play extends BasicGameState {
     boolean quit = false;
     boolean moving;
     int[] duration = {200, 200}; //duration or length of the frame
+    Image minimap;
 
     public Play(int state) {
     }
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        long t = System.currentTimeMillis();
         camera = new Camera(150, -120);
 
         s = new Circle(11, 11, 2);
@@ -43,11 +45,12 @@ public class Play extends BasicGameState {
         chunkX = 0;
         chunkY = 0;
         map = new Map(chunkHandler);
+        minimap = map.makeMiniMap();
         /*
         Graphics g = gc.getGraphics();
         g.setWorldClip((int) 0, (int) 0, (int) 500, (int) 500);
          */
-
+        System.out.println("init time: " + (System.currentTimeMillis() - t));
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -66,7 +69,7 @@ public class Play extends BasicGameState {
         g.draw(new Rectangle(0 + (camera.getX()), 0 + camera.getY(), 16, 16));
         g.draw(s);
 
-        map.makeMiniMap().draw(200, 200);
+        minimap.draw(gc.getWidth() - 320, 0);
 
     }
 

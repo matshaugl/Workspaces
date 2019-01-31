@@ -21,9 +21,8 @@ public class Map {
     }
 
     public Image makeMiniMap() {
-        MapChunk mc = chunkHandler.getChunk(0, 0);
-        Image img = mc.getMiniMapImage();
-        return img;
+        //System.out.println(System.currentTimeMillis() - t);
+        return chunkHandler.getMiniMap();
     }
 
     public Map(ChunkHandler chunkHandler) {
