@@ -48,7 +48,7 @@ public class ChunkHandler {
         } catch (SlickException ex) {
             Logger.getLogger(ChunkHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
+         */
         mapChunks = new HashMap<String, MapChunk>();
         treeChunks = new HashMap<String, TreeChunk>();
         mapNoise = new TileNoise();
@@ -73,13 +73,13 @@ public class ChunkHandler {
         currentX = 0;
         currentY = 0;
     }
-    
-    public void makeMiniMap(){
+
+    public void makeMiniMap() {
         MapChunk[][] minimapChunks = new MapChunk[10][10];
         Graphics g = null;
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
-                m = new MapChunk(x-5, y-5, mapNoise);
+                m = new MapChunk(x - 5, y - 5, mapNoise);
                 minimapChunks[x][y] = m;
             }
         }
@@ -91,10 +91,10 @@ public class ChunkHandler {
         }
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
-                for(int i=0; i<32; i++){
-                    for(int j=0; j<32; j++){
-                        g.setColor(minimapChunks[x][y].getMiniMapColor(i,j));
-                        g.fillRect((x*32)+i, (y*32)+j, 1, 1);
+                for (int i = 0; i < 32; i++) {
+                    for (int j = 0; j < 32; j++) {
+                        g.setColor(minimapChunks[x][y].getMiniMapColor(i, j));
+                        g.fillRect((x * 32) + i, (y * 32) + j, 1, 1);
                         //System.out.print("X: " + ((x*32)+i) + "Y: " + ((y*32)+j));
                     }
                     //System.out.println("");
@@ -162,6 +162,10 @@ public class ChunkHandler {
 
     Image getMiniMap() {
         return miniMap;
+    }
+
+    void click(int mousePX, int mousePY) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -38,4 +38,8 @@ public class Map {
         chunkHandler.update(chunkX, chunkY);
     }
 
+    public void click(int mousePX, int mousePY) {
+        chunkHandler.click(mousePX, mousePY);
+    }
+
 }

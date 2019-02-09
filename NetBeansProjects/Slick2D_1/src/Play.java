@@ -14,7 +14,6 @@ public class Play extends BasicGameState {
     Circle s;
     Player skeleton;
     Player mob;
-    
 
     int p;
     int chunkX;
@@ -93,6 +92,7 @@ public class Play extends BasicGameState {
             int mousePY = (int) (input.getMouseY() - camera.getY()) / 32;
 
             System.out.println("" + mousePX + ", " + mousePY);
+            map.click(mousePX, mousePY);
         }
     }
 

@@ -7,6 +7,7 @@ package mapgen;
 
 import gameobject.Tree;
 import java.util.ArrayList;
+import java.util.HashMap;
 import mapgen.noise.TileNoise;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +25,8 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public class TreeChunk {
 
-    ArrayList<Tree> treeList;
+    //ArrayList<Tree> treeList;
+    HashMap<String, Tree> treeList;
 
     TreeNoise treeNoise;
     TileNoise tileNoise;
@@ -36,7 +38,7 @@ public class TreeChunk {
     double treeLevel = 0.015;
 
     public TreeChunk(int x, int y, TreeNoise tf, TileNoise mf) {
-        treeList = new ArrayList<Tree>();
+        treeList = new HashMap<String, Tree>();
         treeNoise = tf;
         tileNoise = mf;
         size = 32;
@@ -56,6 +58,7 @@ public class TreeChunk {
     }
 
     public void render(float shiftX, float shiftY) {
+        treeList.
         for (int i = 0; i < treeList.size(); i++) {
             treeList.get(i).render(shiftX, shiftY);
         }
