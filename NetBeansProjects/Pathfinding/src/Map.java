@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.Color;
@@ -17,8 +18,10 @@ public class Map implements TileBasedMap {
     SpriteSheet tiles;
     int width;
     int height;
+    
+    
 
-    public void init() {
+    public void init(ArrayList<Tree> treeList) {
         Graphics g = null;
         try {
             mapPng = new Image("res/map.png");
@@ -42,7 +45,14 @@ public class Map implements TileBasedMap {
             }
         }
         g.flush();
-
+        
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (mapPng.getColor(x, y).equals(Color.yellow)) {
+                    treeList.add(new Tree(x, y));
+                }
+            }
+        }
     }
 
     public void render(Graphics g) {
@@ -70,7 +80,7 @@ public class Map implements TileBasedMap {
 
     @Override
     public boolean blocked(PathFindingContext context, int tx, int ty) {
-        if (mapPng.getColor(tx, ty).equals(Color.black)) {
+        if (mapPng.getColor(tx, ty).equals(Color.black) || mapPng.getColor(tx, ty).equals(Color.yellow)) {
             return true;
         }
         return false;

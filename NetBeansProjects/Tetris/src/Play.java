@@ -11,6 +11,8 @@ public class Play extends BasicGameState {
     Boolean newStep = true;
     int deltaTurn= 0;
     int turnSpeed = 500;
+    
+    Food food;
 
     public Play(int state) {
         
@@ -19,6 +21,7 @@ public class Play extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         spillbrett = new Rectangle (20*32, 5*32, 32*10, 32*20);
         block = new Rectangle (32 * 25, 32*5, 32, 32);
+        food = new Food();
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -26,6 +29,7 @@ public class Play extends BasicGameState {
       g.draw(spillbrett);
       g.setColor(Color.red);
       g.draw(block);
+      food.render(g);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
@@ -35,6 +39,8 @@ public class Play extends BasicGameState {
             deltaTurn = 0;
             block.setLocation(block.getX(), block.getY()+32);
         }
+        food.update(delta);
+        System.out.println(delta);
     }
 
     public int getID() {

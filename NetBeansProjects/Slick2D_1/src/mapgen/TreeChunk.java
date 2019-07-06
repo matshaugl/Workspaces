@@ -58,7 +58,7 @@ public class TreeChunk {
     }
 
     public void render(float shiftX, float shiftY) {
-        treeList.
+        //treeList.
         for (int i = 0; i < treeList.size(); i++) {
             treeList.get(i).render(shiftX, shiftY);
         }

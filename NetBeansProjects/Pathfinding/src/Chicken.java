@@ -122,7 +122,7 @@ public class Chicken implements Mover {
                 currentStep++;
                 ready = false;
                 //System.out.println("Walking");
-                if (currentStep == path.getLength()) {
+                if (currentStep+1 == path.getLength()) {
                     moving = false;
                     currentStep = 0;
                     System.out.println(path.getLength());

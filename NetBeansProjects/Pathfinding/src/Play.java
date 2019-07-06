@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
@@ -10,6 +11,8 @@ public class Play extends BasicGameState {
 
     Map map;
     Chicken chicken;
+    ArrayList<Tree> treeList;
+    Tree tree;
     AStarPathFinder pFinder;
     PathRenderer pr;
 
@@ -19,7 +22,9 @@ public class Play extends BasicGameState {
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         map = new Map();
-        map.init();
+        tree = new Tree(14,5);
+        treeList = new ArrayList<Tree>();
+        map.init(treeList);
         chicken = new Chicken(map, 1, 1);
         pFinder = new AStarPathFinder(map, 200, false);
         pr = new PathRenderer();
@@ -28,10 +33,15 @@ public class Play extends BasicGameState {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         //g.scale(1.5f, 1.5f);
+        //g.scale(2, 2);
         map.render(g);
         chicken.render(g);
+        tree.render(g);
+        for(int i = 0; i < treeList.size(); i++){
+            treeList.get(i).render(g);
+        }
 
-        pr.render(g);
+        //pr.render(g);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
