@@ -10,8 +10,13 @@ import org.newdawn.slick.util.pathfinding.Path;
 public class Play extends BasicGameState {
 
     Image map;
-    int xSize = 3840;
-    int ySize = 2160;
+    //int xSize = 3840;
+    //int ySize = 2160;
+    
+    int xSize = 1920;
+    int ySize = 1080;
+    
+    MapData mapData;
 
     public Play(int state) {
 
@@ -19,13 +24,19 @@ public class Play extends BasicGameState {
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         map = new Image(xSize,ySize);
+        mapData = new MapData(xSize, ySize);
+        
         Graphics g = map.getGraphics();
         for(int x = 0; x<xSize; x++){
             for(int y = 0; y<ySize; y++){
+                g.setColor(Color.black);
+                
                 if(x%(xSize/20)==0 || y%(xSize/20)==0){
                     g.setColor(Color.red);
-                } else {
-                    g.setColor(Color.black);
+                } 
+                
+                if(mapData.getCell(x,y) == 1){
+                    g.setColor(Color.white);
                 }
                 
                 g.drawRect(x, y, x, y);
