@@ -1,9 +1,5 @@
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.*;
@@ -13,10 +9,7 @@ import org.newdawn.slick.state.*;
 
 public class Play extends BasicGameState {
 
-    ServerSocket ss;
-    Socket socket;
-    InputStream inputStream;
-    ObjectInputStream objectInputStream;
+
     Message message;
 
     BulletList bulletList;
@@ -34,23 +27,6 @@ public class Play extends BasicGameState {
 
         map = new Map();
         player = new Player();
-
-        try {
-            ss = new ServerSocket(7777);
-            socket = ss.accept(); // blocking call, this will wait until a connection is attempted on this port.
-            inputStream = socket.getInputStream();
-            objectInputStream = new ObjectInputStream(inputStream);
-
-            message = (Message) objectInputStream.readObject();
-
-            System.out.println(message.getText());
-
-            ss.close();
-            socket.close();
-
-        } catch (IOException ex) {
-            Logger.getLogger(Play.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
     }
 

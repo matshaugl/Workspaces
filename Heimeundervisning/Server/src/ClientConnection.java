@@ -16,10 +16,11 @@ import java.util.logging.Logger;
  * @author Mats
  */
 public class ClientConnection implements Runnable {
+    ObjectInputStream is;
+    ObjectOutputStream os;
 
     ClientConnection(Socket socket) {
-        ObjectInputStream is;
-        ObjectOutputStream os;
+        
         try {
             is = new ObjectInputStream(socket.getInputStream());
             os = new ObjectOutputStream(socket.getOutputStream());
@@ -35,13 +36,15 @@ public class ClientConnection implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     public void connect() {
 
+    }
+
+    @Override
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
