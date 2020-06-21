@@ -71,4 +71,8 @@ public class Player {
         }
     }
     
+    public void move(int delta){
+        yPos = yPos + (0.05f * delta);
+    }
+    
 }

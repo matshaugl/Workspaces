@@ -33,7 +33,7 @@ public class Tree {
         treeYoff = -96;
 
         try {
-            m = new Image("res/tree2.png");
+            m = new Image("res/tree.png");
         } catch (SlickException ex) {
             Logger.getLogger(Tree.class.getName()).log(Level.SEVERE, null, ex);
         }

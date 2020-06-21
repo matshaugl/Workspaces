@@ -2,6 +2,7 @@
 import gameobject.Tree;
 import Camera.Camera;
 import Animator.*;
+import UI.Button;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
@@ -12,6 +13,8 @@ public class Play extends BasicGameState {
     Circle s;
     Player skeleton;
     Player mob;
+    
+    Button button;
 
     int p;
     int chunkX;
@@ -39,6 +42,7 @@ public class Play extends BasicGameState {
         chunkHandler = new ChunkHandler();
         chunkX = 0;
         chunkY = 0;
+        button = new Button();
         /*
         Graphics g = gc.getGraphics();
         g.setWorldClip((int) 0, (int) 0, (int) 500, (int) 500);
@@ -60,12 +64,14 @@ public class Play extends BasicGameState {
         g.draw(new Rectangle(0 + (camera.getX()), 0 + camera.getY(), 32, 32));
         g.draw(new Rectangle(0 + (camera.getX()), 0 + camera.getY(), 16, 16));
         g.draw(s);
+        button.render(g);
 
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         moving = false;
         Input input = gc.getInput();
+        skeleton.move(delta);
 
         boolean moving = camera.update(input, delta);
         if (moving) {
@@ -76,8 +82,11 @@ public class Play extends BasicGameState {
 
         if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             s.setLocation(input.getMouseX(), input.getMouseY());
+            
+            int mouseTileX = (int)(input.getMouseX() - camera.getX()) / 32;
+            int mouseTileY = (int)(input.getMouseY() - camera.getY()) / 32;
 
-            System.out.println("" + (input.getMouseX() - camera.getX()) + ", " + (input.getMouseY() - camera.getY()));
+            System.out.println("" + mouseTileX + ", " + mouseTileY);
         }
     }
 
