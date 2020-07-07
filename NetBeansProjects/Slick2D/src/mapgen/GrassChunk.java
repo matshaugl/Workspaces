@@ -22,7 +22,7 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author matsh
  */
-public class TreeChunk {
+public class GrassChunk {
 
     ArrayList<Tree> treeList;
 
@@ -35,7 +35,7 @@ public class TreeChunk {
     int tileSize = 32;
     double treeLevel = 0.08;
 
-    public TreeChunk(int x, int y, TreeNoise tf, TileNoise mf) {
+    public GrassChunk(int x, int y, TreeNoise tf, TileNoise mf) {
         treeList = new ArrayList<Tree>();
         treeNoise = tf;
         tileNoise = mf;

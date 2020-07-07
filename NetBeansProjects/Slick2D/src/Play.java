@@ -51,7 +51,7 @@ public class Play extends BasicGameState {
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-
+        //g.scale(0.2f, 0.2f);
         chunkHandler.render(camera);
 
         skeleton.render(camera);

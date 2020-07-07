@@ -24,6 +24,9 @@ public class MapChunk {
     Image mapImage;
     SpriteSheet sheet;
 
+    Image procedurallImage;
+    Graphics procedurallG;
+
     TileNoise fixedNoise;
     int size;
     TerrainType[][] terrainTypeArray;
@@ -48,6 +51,23 @@ public class MapChunk {
         }
     }
 
+    public MapChunk(int x, int y, TileNoise f, Image procedurallImage, Graphics procedurallG) {
+        this.procedurallImage = procedurallImage;
+        this.procedurallG = procedurallG;
+
+        fixedNoise = f;
+        size = 32;
+        terrainTypeArray = new TerrainType[size + 2][size + 2];
+        chunkX = x;
+        chunkY = y;
+
+        try {
+            init();
+        } catch (SlickException ex) {
+            Logger.getLogger(MapChunk.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void init() throws SlickException {
         mapImage = new Image(size * tileSize, size * tileSize);
         sheet = new SpriteSheet("res/sandwaterbinary2.png", 32, 32);
@@ -57,8 +77,10 @@ public class MapChunk {
     }
 
     public void render(float shiftX, float shiftY) {
-        mapImage.draw(shiftX, shiftY);
-        
+        int x = (int) shiftX;
+        int y = (int) shiftY;
+        mapImage.draw(x, y);
+        /*
         Graphics g = null;
         try {
             g = mapImage.getGraphics();
@@ -68,22 +90,23 @@ public class MapChunk {
         
         g.draw(new Rectangle(1, 1, 32*32-1, 32*32-1));
         g.flush();
+         */
     }
 
     public void update() {
 
     }
-    
-    public int getX(){
+
+    public int getX() {
         return chunkX;
     }
-    
-    public int getY(){
+
+    public int getY() {
         return chunkY;
     }
-    
-    public String getKey(){
-        return ""+chunkX+","+chunkY;
+
+    public String getKey() {
+        return "" + chunkX + "," + chunkY;
     }
 
     private void makeTerrainTypeArray() {
@@ -116,16 +139,17 @@ public class MapChunk {
     }
 
     private void makeMapImage() throws SlickException {
-        Graphics g = null;
-        g = mapImage.getGraphics();
+        //Graphics g = null;
+        //g = mapImage.getGraphics();
 
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 int tX = x + 1;
                 int tY = y + 1;
                 //System.out.print(terrainTypeArray[x][y] + "   ");
+
                 if (terrainTypeArray[tX][tY] == TerrainType.WATER) {
-                    g.drawImage(sheet.getSprite(0, 16), x * tileSize, y * tileSize);
+                    procedurallG.drawImage(sheet.getSprite(0, 16), x * tileSize, y * tileSize);
                 } else if (terrainTypeArray[tX][tY] == TerrainType.SAND) {
                     int spriteNumber = 0;
                     if (terrainTypeArray[tX][tY - 1] == TerrainType.SAND || terrainTypeArray[tX][tY - 1] == TerrainType.GRASS) {
@@ -140,7 +164,7 @@ public class MapChunk {
                     if (terrainTypeArray[tX + 1][tY] == TerrainType.SAND || terrainTypeArray[tX + 1][tY] == TerrainType.GRASS) {
                         spriteNumber = spriteNumber + 8;
                     }
-                    g.drawImage(sheet.getSprite(0, spriteNumber), x * tileSize, y * tileSize);
+                    procedurallG.drawImage(sheet.getSprite(0, spriteNumber), x * tileSize, y * tileSize);
                     //g.setColor(Color.red);
                     //g.drawString("S", (x * tileSize) + 10, (y * tileSize) + 7);
                 } else if (terrainTypeArray[tX][tY] == TerrainType.GRASS) {
@@ -157,10 +181,10 @@ public class MapChunk {
                     if (terrainTypeArray[tX + 1][tY] == TerrainType.GRASS) {
                         spriteNumber = spriteNumber + 8;
                     }
-                    if (spriteNumber!=15){
-                        g.drawImage(sheet.getSprite(0, 15), x * tileSize, y * tileSize);
+                    if (spriteNumber != 15) {
+                        procedurallG.drawImage(sheet.getSprite(0, 15), x * tileSize, y * tileSize);
                     }
-                    g.drawImage(sheet.getSprite(1, spriteNumber), x * tileSize, y * tileSize);
+                    procedurallG.drawImage(sheet.getSprite(1, spriteNumber), x * tileSize, y * tileSize);
                     //7g.setColor(Color.red);
                     //g.drawString("G", (x * tileSize) + 10, (y * tileSize) + 7);
                 }
@@ -168,8 +192,18 @@ public class MapChunk {
             }
             //System.out.println();
         }
+        
+        procedurallG.flush();
+        System.out.println(procedurallImage.getColor(0, 0));
+        
+        
+        //procedurallImage.draw(500,100);
 
-        g.flush();
+        mapImage = procedurallImage.copy();
+        mapImage.draw(500, 500);
+        System.out.println();
+        //procedurallG.copyArea(mapImage, size * tileSize, tileSize);
+
     }
 
 }
