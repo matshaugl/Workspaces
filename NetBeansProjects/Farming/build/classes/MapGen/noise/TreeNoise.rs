@@ -1,1 +1,0 @@
-mapgen.noise.TreeNoise
