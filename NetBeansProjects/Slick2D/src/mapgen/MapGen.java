@@ -21,7 +21,7 @@ import org.newdawn.slick.geom.Rectangle;
  * @author Mats
  */
 public class MapGen {
-
+/*
     SpriteSheet sheet;
     double noiseMap[][];
     Image map;
@@ -83,7 +83,7 @@ public class MapGen {
                 noise = noise /numbFreq;
                 //freq = 0.32;
                 //noise = SimplexNoise.noise(x*freq, y*freq);
-                 */
+                 
                 //noise = noiseMixer.getNoise(x, y);
                 noise = fixedNoise.getNoise(x, y);
                 noiseMap[x][y] = noise;
@@ -157,5 +157,5 @@ public class MapGen {
         g.flush();
         return map;
     }
-
+*/
 }

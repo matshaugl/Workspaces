@@ -39,6 +39,7 @@ public class ChunkHandler {
     Graphics procedurallG;
 
     public ChunkHandler() {
+        
         try {
             procedurallImage = new Image(chunkSize * tileSize, chunkSize * tileSize);
             procedurallG = procedurallImage.getGraphics();
@@ -50,11 +51,13 @@ public class ChunkHandler {
         treeChunks = new HashMap<String, TreeChunk>();
         mapNoise = new TileNoise();
         treeNoise = new TreeNoise();
+        
+        
 
         for (int x = 0 - chunkRenderRadius; x < 1 + chunkRenderRadius; x++) {
             for (int y = 0 - chunkRenderRadius; y < 1 + chunkRenderRadius; y++) {
                 //m = new MapChunk(x, y, mapNoise);
-                m = new MapChunk(x, y, mapNoise, procedurallImage, procedurallG);
+                m = new MapChunk(x, y, mapNoise, procedurallG);
                 t = new TreeChunk(x, y, treeNoise, mapNoise);
                 mapChunks.put(m.getKey(), m);
                 treeChunks.put(t.getKey(), t);
@@ -108,7 +111,7 @@ public class ChunkHandler {
         for (int x = 0 - chunkRenderRadius; x < 1 + chunkRenderRadius; x++) {
             for (int y = 0 - chunkRenderRadius; y < 1 + chunkRenderRadius; y++) {
                 if (!mapChunks.containsKey("" + (chunkX + x) + "," + (chunkY + y))) {
-                    MapChunk newChunk = new MapChunk(chunkX + x, chunkY + y, mapNoise, procedurallImage, procedurallG);
+                    MapChunk newChunk = new MapChunk(chunkX + x, chunkY + y, mapNoise, procedurallG);
                     mapChunks.put(newChunk.getKey(), newChunk);
                 }
                 if (!treeChunks.containsKey("" + (chunkX + x) + "," + (chunkY + y))) {

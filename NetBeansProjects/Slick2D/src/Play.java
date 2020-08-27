@@ -31,6 +31,7 @@ public class Play extends BasicGameState {
     }
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        
         camera = new Camera(150, -120);
 
         s = new Circle(11, 11, 2);
