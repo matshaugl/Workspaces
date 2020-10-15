@@ -35,7 +35,6 @@ public class Animator {
             Image image = sheet.getSprite(i+1, row);
             images[i] = image;
         }
-        System.out.println(images);
         return new Animation(images, 50);
     }
 }

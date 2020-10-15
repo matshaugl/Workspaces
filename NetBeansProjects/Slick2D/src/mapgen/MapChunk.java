@@ -5,6 +5,7 @@
  */
 package mapgen;
 
+import Main.Play;
 import mapgen.noise.TileNoise;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +26,7 @@ public class MapChunk {
     Image mapImage;
     SpriteSheet sheet;
 
-    Graphics procedurallG;
+
 
     TileNoise fixedNoise;
     int size;
@@ -52,9 +53,7 @@ public class MapChunk {
         }
     }
      */
-    public MapChunk(int x, int y, TileNoise f, Graphics procedurallG) {
-        this.procedurallG = procedurallG;
-
+    public MapChunk(int x, int y, TileNoise f) {
         fixedNoise = f;
         size = 32;
         terrainTypeArray = new TerrainType[size + 2][size + 2];
@@ -130,19 +129,13 @@ public class MapChunk {
 
     private void makeMapImage() throws SlickException {
 
-        //Graphics g = null;
-        //Graphics procedurallG = null;
-        procedurallG = mapImage.getGraphics();
-
-        //g = mapImage.getGraphics();
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 int tX = x + 1;
                 int tY = y + 1;
                 //System.out.print(terrainTypeArray[x][y] + "   ");
                 if (terrainTypeArray[tX][tY] == TerrainType.WATER) {
-
-                    procedurallG.drawImage(sheet.getSprite(0, 16), x * tileSize, y * tileSize);
+                    Play.staticImgG.drawImage(sheet.getSprite(0, 16), x * tileSize, y * tileSize);
                 } else if (terrainTypeArray[tX][tY] == TerrainType.SAND) {
                     int spriteNumber = 0;
                     if (terrainTypeArray[tX][tY - 1] == TerrainType.SAND || terrainTypeArray[tX][tY - 1] == TerrainType.GRASS) {
@@ -157,7 +150,7 @@ public class MapChunk {
                     if (terrainTypeArray[tX + 1][tY] == TerrainType.SAND || terrainTypeArray[tX + 1][tY] == TerrainType.GRASS) {
                         spriteNumber = spriteNumber + 8;
                     }
-                    procedurallG.drawImage(sheet.getSprite(0, spriteNumber), x * tileSize, y * tileSize);
+                    Play.staticImgG.drawImage(sheet.getSprite(0, spriteNumber), x * tileSize, y * tileSize);
 
                 } else if (terrainTypeArray[tX][tY] == TerrainType.GRASS) {
                     int spriteNumber = 0;
@@ -174,18 +167,22 @@ public class MapChunk {
                         spriteNumber = spriteNumber + 8;
                     }
                     if (spriteNumber != 15) {
-                        procedurallG.drawImage(sheet.getSprite(0, 15), x * tileSize, y * tileSize);
+                        Play.staticImgG.drawImage(sheet.getSprite(0, 15), x * tileSize, y * tileSize);
                     }
-                    procedurallG.drawImage(sheet.getSprite(1, spriteNumber), x * tileSize, y * tileSize);
+                    Play.staticImgG.drawImage(sheet.getSprite(1, spriteNumber), x * tileSize, y * tileSize);
 
                 }
 
             }
+        
 
         }
-        procedurallG.copyArea(mapImage, 0, 0);
+
+        Play.staticImgG.copyArea(mapImage, 0, 0);
+
+        mapImage = mapImage.getFlippedCopy(false, true);
         
-        procedurallG.flush();
+        //Play.staticImgG.flush();
 
     }
 

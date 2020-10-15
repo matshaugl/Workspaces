@@ -42,7 +42,6 @@ public class GrassChunk {
         size = 32;
         chunkX = x;
         chunkY = y;
-        System.out.println(chunkX + ", " + chunkY);
         try {
             init();
         } catch (SlickException ex) {
@@ -81,7 +80,6 @@ public class GrassChunk {
     private void createTrees() {
         //treeList.add(new Tree(0, 0));
         //if (chunkX == 1 && chunkY == 1) {
-        System.out.println("Tree gen");
 
         int x = (size * chunkX);
         int y;
