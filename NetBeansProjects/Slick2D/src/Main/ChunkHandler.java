@@ -34,7 +34,7 @@ public class ChunkHandler {
     TreeNoise treeNoise;
     int currentX;
     int currentY;
-    int chunkRenderRadius = 2;
+    int chunkRenderRadius = 3;
 
     Image procedurallImage;
     Graphics procedurallG;
