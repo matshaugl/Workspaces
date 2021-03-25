@@ -2,6 +2,9 @@
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 public class ImgIO {
   BufferedImage image = null;
@@ -11,6 +14,11 @@ public class ImgIO {
 
     
     f = new File("D:\\Workspaces\\NetBeansProjects\\JavaImage\\src\\img.jpg");
+      try {
+          image = ImageIO.read(f);
+      } catch (IOException ex) {
+          Logger.getLogger(ImgIO.class.getName()).log(Level.SEVERE, null, ex);
+      }
     
   }
   
@@ -18,7 +26,7 @@ public class ImgIO {
       //write image
     try{
 
-      javax.imageio.ImageIO.write(image, "png", f);
+      javax.imageio.ImageIO.write(image, "jpg", f);
     }catch(IOException e){
       System.out.println("Error: "+e);
     }
